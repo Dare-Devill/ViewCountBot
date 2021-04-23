@@ -16,22 +16,22 @@ try:
     apihash = config("API_HASH")
     bottoken = config("BOT_TOKEN")
     FRWD_CHANNEL = config("FRWD_CHANNEL", cast=int)
-    BotzHub = TelegramClient('BotzHub', apiid, apihash).start(bot_token=bottoken)
+    pmbot = TelegramClient('pmbot', apiid, apihash).start(bot_token=bottoken)
 except:
     print("Environment vars are missing! Kindly recheck.")
     print("Bot is quiting...")
     exit()
 
-@BotzHub.on(events.NewMessage(pattern="/start", func=lambda e: e.is_private))
+@pmbot.on(events.NewMessage(pattern="/start", func=lambda e: e.is_private))
 async def _(event):
-    ok = await BotzHub(GetFullUserRequest(event.sender_id))
+    ok = await pmbot(GetFullUserRequest(event.sender_id))
     await event.reply(f"Hello {ok.user.first_name}! \nI'm a view-counter bot.\nSend me a message and I'll attach a view count to it!",
                     buttons=[
-                        [Button.url("Dev.", url="https://t.me/BotzHub"),
-                        Button.url("Repository", url="https://github.com/xditya/ViewCountBot")]
+                        [Button.url("Dev.", url="https://t.me/pratham_bots"),
+                        Button.url("Report Bug", url="https://t.me/PrathamPrivatebot")]
                     ])
 
-@BotzHub.on(events.NewMessage(incoming=True, func=lambda e: e.is_private))
+@pmbot.on(events.NewMessage(incoming=True, func=lambda e: e.is_private))
 async def countit(event):
     if event.text.startswith('/'):
         return
@@ -39,5 +39,5 @@ async def countit(event):
     await x.forward_to(event.chat_id)
 
 print("Bot has started.")
-print("Do visit @BotzHub..")
+print("Do visit @Pratham_bots..")
 BotzHub.run_until_disconnected()
