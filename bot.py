@@ -40,4 +40,4 @@ async def countit(event):
 
 print("Bot has started.")
 print("Do visit @Pratham_bots..")
-BotzHub.run_until_disconnected()
+.run_until_disconnected()
